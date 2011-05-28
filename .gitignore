@@ -1,0 +1,6 @@
+*~
+*.class
+*.pyc
+*.exe
+*.exe.stackdump
+B-large-1.out
