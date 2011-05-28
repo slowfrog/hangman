@@ -30,7 +30,7 @@ var playable = function(dic, l) {
 
 var next_letter = function(dic, lis) {
   for (var i = 0; i < lis.length; ++i) {
-    var l = lis[i];
+    var l = lis.charAt(i);
     if (playable(dic, l)) {
       return {letter: l, next_letters: lis.substring(i + 1)};
     }
