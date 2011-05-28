@@ -82,7 +82,46 @@ a.button:hover {
   <body>
 <p>This is a JavaScript solution to the problem <a href="http://code.google.com/codejam/contest/dashboard?c=1145485#s=p1">Killer Word</a> from the first round of Google Code Jam 2011.</p>
 <p>You can find a discussion <a href="http://slowfrog.blogspot.com/2011/05/taking-advantage-of-multiple-cores-with_25.html">on my blog</a></p>
-<table cellpadding="0" cellspacing="0">
+<p>And the source, complete with solutions in other languages is <a href="https://github.com/slowfrog/hangman">in github.</a></p>
+    <table cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td>
+            <a href="javascript:create()" class="button">Create pool of</a>
+          </td>
+          <td>
+            <input id="worker_count" type="text" value="4" size="1"></input> workers
+          </td>
+          <td id="queue_td">
+            Queue size: <div id="queue">0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="javascript:run_all()" class="button">Run</a>
+          </td>
+          <td>
+          </td>
+          <td id="status"></td>
+        </tr>
+        <tr>
+          <td>
+            <a href="javascript:kill()" class="button">Kill</a>
+          </td>
+          <td></td>
+          <td id="runtime">Runtime: </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="javascript:run_without_workers()" class="button">Run without workers</a>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table cellpadding="0" cellspacing="0">
       <thead>
         <tr>
           <th>Input</th>
@@ -68538,44 +68577,6 @@ zkgnruclsthipxbmqewyfjdvoa</textarea>
           <td>
             <textarea id="output" rows="25" cols="80"></textarea>
           </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <table cellspacing="0" cellpadding="0">
-      <tbody>
-        <tr>
-          <td>
-            <a href="javascript:create()" class="button">Create pool of</a>
-          </td>
-          <td>
-            <input id="worker_count" type="text" value="4" size="1"></input> workers
-          </td>
-          <td id="queue_td">
-            Queue size: <div id="queue">0</div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a href="javascript:run_all()" class="button">Run</a>
-          </td>
-          <td>
-          </td>
-          <td id="status"></td>
-        </tr>
-        <tr>
-          <td>
-            <a href="javascript:kill()" class="button">Kill</a>
-          </td>
-          <td></td>
-          <td id="runtime">Runtime: </td>
-        </tr>
-        <tr>
-          <td>
-            <a href="javascript:run_without_workers()" class="button">Run without workers</a>
-          </td>
-          <td></td>
-          <td></td>
         </tr>
       </tbody>
     </table>

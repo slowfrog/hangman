@@ -9,11 +9,11 @@ var play_letter = function(state, word, l) {
   var ret = "";
   var lose = true;
   for (var i = 0; i < state.length; ++i) {
-    if (word[i] == l) {
+    if (word.charAt(i) == l) {
       ret += l;
       lose = false;
     } else {
-      ret += state[i];
+      ret += state.charAt(i);
     }
   }
   return {state: ret, lose: lose};

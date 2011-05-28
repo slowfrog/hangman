@@ -63,11 +63,13 @@ var run_all = function() {
   }
   var input = document.getElementById("input");
   var output = document.getElementById("output");
+  output.value = "";
   run(input, output, true);
 };
 
 var run_without_workers = function() {
   var input = document.getElementById("input");
   var output = document.getElementById("output");
+  output.value = "";
   run(input, output, false);
 };
