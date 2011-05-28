@@ -41,11 +41,16 @@ worker from a file, partly because I'm still thinking about how to write a usefu
 like to have the same kind of interface as the one provided by Python and hide the message passing
 protocol that takes place between workers and the master thread.
 
-:hangman.html:      is what you should open to run the solver
-:driver.js:         is the generic Pool/master implementation
-:hangman_driver.js: is the part that parses the input and posts tasks to the worker pool
-:webwork.js:        is the almost generic worker
-:hangman_task.js:   is the JavaScript implementation of the solver
+**hangman.html**
+    is what you should open to run the solver
+**driver.js**
+    is the generic Pool/master implementation
+**hangman_driver.js**
+    is the part that parses the input and posts tasks to the worker pool
+**webwork.js**
+    is the almost generic worker
+**hangman_task.js**
+    is the JavaScript implementation of the solver
 
 To run the program in non-web worker mode, just click the "Run without workers" button. Be aware
 that the browser will probably tell you every few seconds that a script is making the page
@@ -60,11 +65,13 @@ The result will appear once the queue is empty and all workers have finished.
 Supporting files
 ================
 
-:B-large-1.in:    is the large input set.
-:B-large-1.check: is the expected result. If you produce your result in B-large-1.out, you can check
-                  that the result is correct with::
+**B-large-1.in**
+    is the large input set.
+**B-large-1.check**
+    is the expected result. If you produce your result in B-large-1.out, you can check
+    that the result is correct with::
 
-                    diff -b B-large-1.out B-large-1.check
+        diff -b B-large-1.out B-large-1.check
 
-                  The -b option is necessary to account for possible differences in whitespace and
-                  line endings.
+    The -b option is necessary to account for possible differences in whitespace and
+    line endings.
