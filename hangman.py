@@ -1,6 +1,7 @@
 #
 # (c) 2011 Laurent Vaucher
 # http://www.slowfrog.com
+# This file is under Apache License V2.
 #
 from __future__ import division, print_function
 import sys
