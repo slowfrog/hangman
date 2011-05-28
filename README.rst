@@ -4,7 +4,7 @@ Python
 ======
 
 The Python solver is contained in file hangman.py. To run it on the supplied large input set, the
-synax is::
+syntax is::
 
   python hangman.py [-w [num_workers]] < B-large-1.in > B-large-1.out
 
@@ -60,6 +60,21 @@ To run the program with web workers, you need to create a pool first. When you d
 of green squares will appear, to track the activity of allocated workers. Then, launch the
 computation with "Run". The "Queue size" will move briefly to 10, workers will turn red when busy.
 The result will appear once the queue is empty and all workers have finished.
+
+
+C++
+===
+
+The C++ source is hangman.cpp. To compile it with GCC (at least version 4.2 for OpenMP support),
+do::
+
+  g++ -O3 -std=c++0x hangman.cpp -o hangman -fopenmp
+
+Then run with::
+
+  ./hangman [-w [num_workers]] < B-large-1.in > B-large-1.out
+
+The meaning of the command-line options are the same as for Python (see above).
 
 
 Supporting files
