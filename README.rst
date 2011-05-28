@@ -5,7 +5,8 @@ Python
 
 The Python solver is contained in file hangman.py. To run it on the supplied large input set, the
 synax is::
-python hangman.py [-w [num_workers]] < B-large-1.in > B-large-1.out
+
+  python hangman.py [-w [num_workers]] < B-large-1.in > B-large-1.out
 
 With the -w option, the multi-worker solver is used. You can ask for a specific number of workers,
 or let Python decide, generally based on the number of available CPUs on your system. You can even
