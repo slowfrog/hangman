@@ -98,14 +98,11 @@ play_result play_letter(string const &state, word word, char const l) {
  */     
 string solve_one(vector<string> const &dic, string const &lis) {
   unordered_map<word, int> wordindex;
-  unordered_map<string, stats> st1;
-  unordered_map<string, stats> st2;
-  unordered_map<string, stats> *status = &st1;
-  bool status_is_st1 = true;
+  unordered_map<string, stats> status;
   for (int i = 0; i < dic.size(); ++i) {
     string const &w = dic[i];
     string const &state = BASES[w.size()];
-    stats &init = (*status)[state];
+    stats &init = status[state];
     init.score = 0;
     init.letters = 0;
     init.words.push_back(&w);
@@ -116,10 +113,9 @@ string solve_one(vector<string> const &dic, string const &lis) {
   int maxscore = -1;
   word maxword = &NO_WORD;
   
-  while (status->size() > 0) {
-    unordered_map<string, stats> *new_status = (status_is_st1 ? &st2 : &st1);
-    new_status->clear();
-    for (unordered_map<string, stats>::iterator it = status->begin(); it != status->end(); ++it) {
+  while (status.size() > 0) {
+    unordered_map<string, stats> new_status;
+    for (unordered_map<string, stats>::iterator it = status.begin(); it != status.end(); ++it) {
       string const &state = it->first;
       stats const &stat = it->second;
       if (stat.words.size() == 1) {
@@ -138,7 +134,7 @@ string solve_one(vector<string> const &dic, string const &lis) {
           
           string const &new_state = pr.first;
           bool lose = pr.second;
-          stats &new_stat = (*new_status)[new_state];
+          stats &new_stat = new_status[move(new_state)];
           new_stat.score = stat.score + (lose ? 1 : 0);
           new_stat.letters = next_letters;
           new_stat.words.push_back(w);
@@ -146,8 +142,7 @@ string solve_one(vector<string> const &dic, string const &lis) {
       }
     }
     
-    status = new_status;
-    status_is_st1 = !status_is_st1;
+    status = move(new_status);
   }
   
   return *maxword;
