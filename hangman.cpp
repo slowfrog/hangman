@@ -28,7 +28,7 @@ string BASES[] = { "",
                    "__________" };
 string NO_WORD = "<no word>";
 
-typedef pair<char, string> string_pair;
+typedef pair<char, int> string_pair;
 typedef pair<string, bool> play_result;
 typedef string const *word;
 
@@ -37,8 +37,8 @@ class stats {
 public:
   /* Score (number of points lost by the player up to now) */
   int score;
-  /* Remaining letters in order. */
-  string letters;
+  /* Index of the start of the remaining letters. */
+  int letters;
   /* List of words matching the current state. */
   vector<word> words;
 };
@@ -46,7 +46,7 @@ public:
 /* Knowing the set of words that are still possible, stored in 'dic', checks if letter 'l' is
  * a valid guess.
  */
-bool playable(vector<word> const &dic, string l) {
+bool playable(vector<word> const &dic, char l) {
   for (int i = 0; i < dic.size(); ++i) {
     if (dic[i]->find(l) != string::npos) {
       return true;
@@ -61,10 +61,10 @@ bool playable(vector<word> const &dic, string l) {
  * Returns a pair of values. The first one is the next letter to try. The second is the list of
  * letters that will remain available after.
  */
-string_pair next_letter(vector<word> const &dic, string const &lis) {
-  for (int i = 0; i < lis.size(); ++i) {
-    if (playable(dic, lis.substr(i, 1))) {
-      return string_pair(lis[i], lis.substr(i + 1));
+string_pair next_letter(vector<word> const &dic, string const &lis, int start) {
+  for (int i = start; i < lis.size(); ++i) {
+    if (playable(dic, lis[i])) {
+      return string_pair(lis[i], i + 1);
     }
   }
   return string_pair();
@@ -88,7 +88,7 @@ play_result play_letter(string const &state, word word, char const l) {
       lose = false;
     }
   }
-  return play_result(res, lose);
+  return play_result(move(res), lose);
 }
 
 /* Main solving function. 'dic' contains the initial dictionary of all possible words. 'lis' is
@@ -97,7 +97,7 @@ play_result play_letter(string const &state, word word, char const l) {
  * Returns the word from the dictionary that will make the player lose the most points.
  */     
 string solve_one(vector<string> const &dic, string const &lis) {
-  unordered_map<string, int> wordindex;
+  unordered_map<word, int> wordindex;
   unordered_map<string, stats> st1;
   unordered_map<string, stats> st2;
   unordered_map<string, stats> *status = &st1;
@@ -107,10 +107,10 @@ string solve_one(vector<string> const &dic, string const &lis) {
     string const &state = BASES[w.size()];
     stats &init = (*status)[state];
     init.score = 0;
-    init.letters = lis;
+    init.letters = 0;
     init.words.push_back(&w);
 
-    wordindex[w] = i;
+    wordindex[&w] = i;
   }
   
   int maxscore = -1;
@@ -124,13 +124,13 @@ string solve_one(vector<string> const &dic, string const &lis) {
       stats const &stat = it->second;
       if (stat.words.size() == 1) {
         if ((stat.score > maxscore) ||
-            ((stat.score == maxscore) && (wordindex[*stat.words[0]] < wordindex[*maxword]))) {
+            ((stat.score == maxscore) && (wordindex[stat.words[0]] < wordindex[maxword]))) {
           maxscore = stat.score;
           maxword = stat.words[0];
         }
       } else {
-        string_pair nl = next_letter(stat.words, stat.letters);
-        string const &next_letters = nl.second;
+        string_pair nl = next_letter(stat.words, lis, stat.letters);
+        int next_letters = nl.second;
         char const l = nl.first;
         for (int i = 0; i < stat.words.size(); ++i) {
           word w = stat.words[i];
